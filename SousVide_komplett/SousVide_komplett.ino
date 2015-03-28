@@ -34,7 +34,7 @@ int buttonMinusState = 0;         // variable for reading the pushbutton status
 int temp = 53;
   
 //Define Variables we'll be connecting to and specify the links and initial tuning parameters
-double Setpoint, Input, Output;cd
+double Setpoint, Input, Output;
 PID myPID(&Input, &Output, &Setpoint,2,5,1, DIRECT);
 int WindowSize = 5000;
 unsigned long windowStartTime;
