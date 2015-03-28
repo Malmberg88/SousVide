@@ -70,6 +70,8 @@ void setup()
   digitalWrite(RELAY_OUT_PIN,LOW);
 
 
+
+
   windowStartTime = millis();
 
   //initialize the variables we're linked to
