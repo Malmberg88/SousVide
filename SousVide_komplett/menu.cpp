@@ -36,7 +36,7 @@ String Menu::print_vert(){
     } else {
       return "Paramters";
     }
-  }
+  } else 
   return "";
 }
 

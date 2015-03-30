@@ -43,7 +43,7 @@ unsigned long windowStartTime;
 void setup()
 {
   /*---Init LCD---*/
-  pinMode(backLight, HIGH)
+  pinMode(backLight, HIGH);
   digitalWrite(backLight, HIGH);  // turn backlight on. Replace 'HIGH' with 'LOW' to turn it off.
   lcd.begin(16,2);                // columns, rows.  use 16,2 for a 16x2 LCD, etc.
   lcd.clear();                    // start with a blank screen
@@ -55,19 +55,19 @@ void setup()
   pinMode(buttonMinusPin, INPUT);
   
   /*--- Init Temperature Sensor---*/
-  sensors.begin();
+  sensor.begin();
   delay(1000);   
-  sensors.getAddress(tempProbeAddress, 0);  
+  sensor.getAddress(TempAddress, 0);  
   delay(1000);   
-  sensors.requestTemperaturesByIndex(0); // Send the command to get temperatures
+  sensor.requestTemperaturesByIndex(0); // Send the command to get temperatures
   delay(1000);
 
   /*---Read temperature---*/
-  actualTemp =  sensors.getTempC(tempProbeAddress);  
+  double actualTemp =  sensor.getTempC(TempAddress);  
 
   //prepare Relay port for writing
-  pinMode(RELAY_OUT_PIN, OUTPUT);  
-  digitalWrite(RELAY_OUT_PIN,LOW);
+  pinMode(RELAY_PIN, OUTPUT);  
+  digitalWrite(RELAY_PIN,LOW);
 
 
 
@@ -86,9 +86,8 @@ void setup()
 
 void loop()
 {
-  sensors.requestTemperaturesByIndex(0);
-  actualTemp =  sensors.getTempC(tempProbeAddress);
-  Input = analogRead(0);
+  sensor.requestTemperaturesByIndex(0);
+  Input = sensor.getTempC(TempAddress);
   myPID.Compute();
   
   if(digitalRead(buttonMinusPin)) enter_meny();
@@ -111,15 +110,19 @@ void display_params(){
   lcd.setCursor(0,0);
   lcd.print("Parameters: ");
   lcd.setCursor(0,1);
-  lcd.print("P: "+myPID.GetKp()+" I: "+myPID.GetKi()+" D: "+myPID.GetKd());
+  lcd.print("P: ");
+  lcd.print(myPID.GetKp());
+  lcd.print(" I: ");
+  lcd.print(myPID.GetKi());
+  lcd.print(" D: ");
+  lcd.print(myPID.GetKd());
 }
 
 
 void set_temp(){
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("Choose target temp");
-  if()
+  lcd.print("Set temp");
 }
 
 void enter_meny(){
